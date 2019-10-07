@@ -1,0 +1,25 @@
+extends ../layout.pug
+
+block content
+    div.main
+        h2(class="text-center py-3")="Remove User with ID: " + user.id
+        form(action="/user/remove/" + user.id method="POST")
+            div(class="form-group")
+                label(for="id") ID
+                input(type="number" class="form-control" name="id" id="id" disabled="" value=user.id)
+            div(class="form-group")
+                label(for="username") Username
+                input(type="text" class="form-control" name="username" id="username" disabled="" value=user.username)
+            div(class="form-group")
+                label(for="password") Password
+                input(type="password" class="form-control" name="password" id="password" disabled="" value=user.password)
+            div(class="form-group")
+                label(for="group") Group
+                select(class="form-control" name="admin" id="group" disabled="")
+                    if user.admin
+                        option("selected" value="1") Admin
+                        option(value="0") User
+                    else
+                        option(value="1") Admin
+                        option("selected" value="0") User
+            button(type="submit" class="btn btn-danger") Remove User

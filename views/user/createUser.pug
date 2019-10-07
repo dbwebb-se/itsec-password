@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block content
+    if feedback == "successful"
+        div(class="alert alert-success alert-dismissible fade show" role="alert") User created
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                span(aria-hidden="true") &times;
+    else if feedback == "unsuccessful"
+        div(class="alert alert-danger alert-dismissible fade show" role="alert") Failed to create user
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                span(aria-hidden="true") &times;
+    div.main
+        h2(class="text-center py-3")="Create User"
+        form(action="/user/create" method="POST")
+            div(class="form-group")
+                label(for="username") Username
+                input(type="text" class="form-control" id="username" name="username" placeholder="Enter username")
+            div(class="form-group")
+                label(for="password") Password
+                input(type="password" class="form-control" id="password" name="password" aria-describedby="passwordInfo" placeholder="Password")
+                small(id="passwordInfo" class="form-text text-muted") Your password will definitely not be stored in plaintext.
+            button(type="submit" class="btn btn-primary") Create User

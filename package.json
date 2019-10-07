@@ -1,0 +1,34 @@
+{
+  "name": "itsec-login",
+  "version": "1.0.0",
+  "description": "A simple application to help the student understand how to implement various protection of passwords.",
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rd node_modules",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "node",
+    "sqlite",
+    "express"
+  ],
+  "author": "AuroraBTH",
+  "license": "CC-BY-NC-SA-4.0",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "pug": "^2.0.4",
+    "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}

@@ -1,0 +1,17 @@
+html(class="login-html")
+    head
+        title SSUS - #{title}
+        link(rel="stylesheet", href="bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", href="style/style.css")
+        link(rel="stylesheet", href="style/fontawesome/css/all.min.css")
+    body(class="login-body")
+        form(class="form-signin")
+            div(class="")
+                img(class="login-logo" src="img/logo_transparent.png")
+            div(class="form-label-group")
+                input(id="inputUsername", class="form-control", type="text", placeholder="Username", autofocus, required)
+                label(for="inputUsername") Username
+            div(class="form-label-group")
+                input(id="inputPassword", class="form-control", type="password", placeholder="Password", required)
+                label(for="inputPassword") Password
+            button(class="btn btn-lg btn-dark btn-block" type="submit") Sign in
