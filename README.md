@@ -35,3 +35,4 @@ You can watch the logs by running:
 docker logs <CONTAINER_ID> -f
 ```
 
+**Note:** The application uses [nodemon](https://www.npmjs.com/package/nodemon) by default in container, so any changes to any files will be reflected immediately.
