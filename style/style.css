@@ -1,3 +1,15 @@
+p, td, a, li {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, th {
+    font-family: 'Catamaran', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
 .main {
     width: 960px;
     margin: 0 auto;
