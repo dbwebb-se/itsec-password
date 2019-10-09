@@ -36,3 +36,7 @@ docker logs <CONTAINER_ID> -f
 ```
 
 **Note:** The application uses [nodemon](https://www.npmjs.com/package/nodemon) by default in container, so any changes to any files will be reflected immediately.
+
+### Default users
+
+A default admin account has been created at admin/admin and a default user account at doe/doe.
