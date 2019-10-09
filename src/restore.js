@@ -39,7 +39,7 @@ const createUsers = function () {
 
         userData["users"].forEach(user => {
             stmt.run(user.username, user.password, user.admin);
-            console.log("Added user: " + user.username + " with password: " + user.password + " and admin level: " + user.admin);
+            console.info("Added user: " + user.username + " with password: " + user.password + " and admin level: " + user.admin);
         });
 
         stmt.finalize((error, result) => {

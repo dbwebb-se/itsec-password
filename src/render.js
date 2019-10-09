@@ -1,22 +1,49 @@
-const sqlite3 = require("sqlite3").verbose();
 const database = require("./database");
-const db = new sqlite3.Database("db/login.db");
+
+const login = function (req, res) {
+    res.render("login", {
+        title: "Login",
+        login: req.query.login
+    });
+};
 
 const listUsers = function (req, res) {
     let feedback = req.query.feedback != undefined ? req.query.feedback : null;
 
-    db.all("SELECT * FROM users", function (err, row) {
-        if (row == undefined) {
-            row = [];
-        }
+    if (req.session.user.admin) {
+        database.fetchAllUsers()
+            .then((users) => {
+                if (users == undefined) {
+                    users = [];
+                }
 
-        res.render("user/listUsers", {
-            data: row,
-            user: "Admin",
-            title: "List all users",
-            feedback: feedback
-        });
-    });
+                res.render("user/listUsers", {
+                    data: users,
+                    user: req.session.user.username,
+                    title: "List all users",
+                    feedback: feedback
+                });
+            });
+    } else {
+        database.fetchOneUser(req.session.user.id)
+            .then((user) => {
+                res.render("user/listUsers", {
+                    data: [user],
+                    user: req.session.user.username,
+                    title: "List user",
+                    feedback: feedback
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                res.render("user/listUsers", {
+                    data: [],
+                    user: req.session.user.username,
+                    title: "List user",
+                    feedback: feedback
+                });
+            });
+    }
 };
 
 const createUserForm = function (req, res) {
@@ -73,6 +100,7 @@ const removeUser = function (req, res) {
 };
 
 module.exports = {
+    login: login,
     listUsers: listUsers,
     createUserForm: createUserForm,
     createUser: createUser,

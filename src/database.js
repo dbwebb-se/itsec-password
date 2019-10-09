@@ -4,11 +4,26 @@ const db = new sqlite3.Database("db/login.db");
 
 const fetchOneUser = function(id) {
     return new Promise((resolve, reject) => {
-        let stmt = "SELECT * FROM users WHERE id = " + id;
+        let stmt = "SELECT * FROM users WHERE id = ?";
 
-        db.get(stmt, [], (error, result) => {
+        db.get(stmt, id, [], (error, result) => {
             if (error) {
-                console.log(error);
+                console.error(error);
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
+
+const fetchAllUsers = function() {
+    return new Promise((resolve, reject) => {
+        let stmt = "SELECT * FROM users";
+
+        db.all(stmt, [], (error, result) => {
+            if (error) {
+                console.error(error);
                 reject(error);
             } else {
                 resolve(result);
@@ -37,17 +52,9 @@ const updateUser = function(req, res) {
     let password = req.body.password;
     let admin = req.body.admin;
 
-    let stmtString = `
-        UPDATE users
-        SET username='${username}',
-            password='${password}',
-            admin='${admin}'
-        WHERE id=${id}
-    `;
+    let stmt = db.prepare("UPDATE users SET username = ?, password = ?, admin = ? WHERE id = ?");
 
-    let stmt = db.prepare(stmtString);
-
-    stmt.run([], (error) => {
+    stmt.run(username, password, admin, id, [], (error) => {
         if (error) {
             console.error(error);
             res.redirect("/user/update/" + id + "?feedback=unsucessful");
@@ -60,17 +67,12 @@ const updateUser = function(req, res) {
 const removeUser = function (req, res) {
     let id = req.params.id;
 
-    let stmtString = `
-        DELETE FROM users
-        WHERE id=${id}
-    `;
+    let stmt = db.prepare("DELETE FROM users WHERE id = ?");
 
-    let stmt = db.prepare(stmtString);
-
-    stmt.run([], (error) => {
+    stmt.run(id, [], (error) => {
         if (error) {
             console.error(error);
-            res.redirect("/?feedback=unsucessful");
+            res.redirect("/?feedback=unsuccessful");
         } else {
             res.redirect("/?feedback=successful");
         }
@@ -87,10 +89,26 @@ const restoreDatabase = async function(req, res) {
     });
 };
 
+const verifyLogin = function (username, password) {
+    return new Promise((resolve, reject) => {
+        let stmt = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        db.get(stmt, username, password, [], (error, result) => {
+            if (result == undefined) {
+                reject("Username or password is incorrect");
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
+
 module.exports = {
-    restoreDatabase: restoreDatabase,
     fetchOneUser: fetchOneUser,
+    fetchAllUsers: fetchAllUsers,
     createUser: createUser,
     updateUser: updateUser,
-    removeUser: removeUser
+    removeUser: removeUser,
+    restoreDatabase: restoreDatabase,
+    verifyLogin: verifyLogin
 };
