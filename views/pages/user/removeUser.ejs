@@ -1,0 +1,34 @@
+<%- include("../../partials/header") %>
+
+<div class="main">
+    <h2 class="text-center py-3">Remove User with ID: <%= user.id %></h2>
+    <form action="/user/remove/<%= user.id %>" method="POST">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="number" class="form-control" name="id" id="id" disabled="" value=<%= user.id %>>
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" id="username" disabled="" value=<%= user.username %>>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password" disabled="" value=<%= user.password %>>
+        </div>
+        <div class="form-group">
+            <label for="group">Group</label>
+            <select class="form-control" name="admin" id="group" disabled="">
+                <% if (user.admin) { %>
+                    <option selected value="1">Admin</option>
+                    <option value="0">User</option>
+                <% } else { %>
+                    <option value="1">Admin</option>
+                    <option selected value="0">User</option>
+                <% } %>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger">Remove User</button>
+    </form>
+</div>
+
+<%- include("../../partials/footer") %>

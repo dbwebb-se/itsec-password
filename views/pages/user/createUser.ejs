@@ -1,0 +1,35 @@
+<%- include("../../partials/header") %>
+
+<% if (feedback == "successful") { %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    User created
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"> &times;</span>
+    </button>
+</div>
+<% } else if (feedback == "unsuccessful") { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    Failed to create user
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"> &times;</span>
+    </button>
+</div>
+<% } %>
+
+<div class="main">
+    <h2 class="text-center py-3">Create User</h2>
+    <form action="/user/create" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordInfo" placeholder="Password">
+            <small id="passwordInfo" class="form-text text-muted">Your password will definitely not be stored in plaintext.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Create User</button>
+    </form>
+</div>
+
+<%- include("../../partials/footer") %>
