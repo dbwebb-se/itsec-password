@@ -84,7 +84,7 @@ const restoreDatabase = async function(req, res) {
     await restore.createUserTable();
     await restore.createUsers();
 
-    res.render("restoredUsers", {
+    res.render("pages/restoreUsers", {
         title: "Restored Users"
     });
 };

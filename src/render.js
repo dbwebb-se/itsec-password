@@ -1,7 +1,7 @@
 const database = require("./database");
 
 const login = function (req, res) {
-    res.render("login", {
+    res.render("pages/login", {
         title: "Login",
         login: req.query.login
     });
@@ -17,8 +17,8 @@ const listUsers = function (req, res) {
                     users = [];
                 }
 
-                res.render("user/listUsers", {
-                    data: users,
+                res.render("pages/user/listUsers", {
+                    users: users,
                     user: req.session.user.username,
                     title: "List all users",
                     feedback: feedback
@@ -27,8 +27,8 @@ const listUsers = function (req, res) {
     } else {
         database.fetchOneUser(req.session.user.id)
             .then((user) => {
-                res.render("user/listUsers", {
-                    data: [user],
+                res.render("pages/user/listUsers", {
+                    users: [user],
                     user: req.session.user.username,
                     title: "List user",
                     feedback: feedback
@@ -36,8 +36,8 @@ const listUsers = function (req, res) {
             })
             .catch((error) => {
                 console.error(error);
-                res.render("user/listUsers", {
-                    data: [],
+                res.render("pages/user/listUsers", {
+                    users: [],
                     user: req.session.user.username,
                     title: "List user",
                     feedback: feedback
@@ -47,7 +47,7 @@ const listUsers = function (req, res) {
 };
 
 const createUserForm = function (req, res) {
-    res.render("user/createUser", {
+    res.render("pages/user/createUser", {
         title: "Create User",
         feedback: null
     });
@@ -56,14 +56,14 @@ const createUserForm = function (req, res) {
 const createUser = function (req, res) {
     database.createUser(req.body.username, req.body.password)
         .then(() => {
-            res.render("user/createUser", {
+            res.render("pages/user/createUser", {
                 title: "Create User",
                 feedback: "successful"
             });
         })
         .catch((error) => {
             console.error(error);
-            res.render("user/createUser", {
+            res.render("pages/user/createUser", {
                 title: "Create User",
                 feedback: "unsuccessful"
             });
@@ -75,7 +75,7 @@ const updateUser = async function (req, res) {
 
     database.fetchOneUser(req.params.id)
         .then((user) => {
-            res.render("user/updateUser", {
+            res.render("pages/user/updateUser", {
                 title: "Update User",
                 user: user,
                 feedback: feedback
@@ -89,7 +89,7 @@ const updateUser = async function (req, res) {
 const removeUser = function (req, res) {
     database.fetchOneUser(req.params.id)
         .then((user) => {
-            res.render("user/removeUser", {
+            res.render("pages/user/removeUser", {
                 title: "Remove User",
                 user: user
             });
