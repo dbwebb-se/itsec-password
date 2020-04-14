@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(port, () => console.info(`Example app listening on port ${port}!`));
-app.set("view engine", "pug");
+app.set("view engine", "ejs");
 
 app.use("/fontawesome", express.static(__dirname + "/node_modules/@fortawesome/fontawesome-free"));
 app.use("/bootstrap", express.static(__dirname + "/node_modules/bootstrap/dist"));
